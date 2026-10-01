@@ -33,7 +33,7 @@ pintarUSuariosEnPantalla();
  async function addUsuario() {
     console.log("Agregando un nuevo usuario...");
     let guardaConExito =  false;
-    guardaConExito = await miEscuelaCRM.registrarUsuarioAsync({ id:1 , nombre: "Ana Torres", rol: "alumno", activo: true });
+    guardaConExito = await miEscuelaCRM.registrarUsuarioAsync({ id:1 , nombre: "Ana Torres", rol: "alumno", activo: true, apellidos: "García", email: "ana.torres@example.com" });
     if (guardaConExito) {
         console.log("Usuario agregado con éxito.");
     } else {
