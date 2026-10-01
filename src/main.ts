@@ -33,7 +33,7 @@ pintarUSuariosEnPantalla();
  async function addUsuario() {
     console.log("Agregando un nuevo usuario...");
     let guardaConExito =  false;
-    guardaConExito = await miEscuelaCRM.registrarUsuarioAsync({ id:1 , nombre: "Ana Torres", rol: "alumno", activo: true });
+    guardaConExito = await miEscuelaCRM.registrarUsuarioAsync({ id:1 , nombre: "Ana Torres", rol: "alumno", activo: true, apellidos: "García", email: "ana.torres@example.com" });
     if (guardaConExito) {
         console.log("Usuario agregado con éxito.");
     } else {
@@ -51,3 +51,28 @@ const profesores = miEscuelaCRM.filtrarUsuariosPorRol("profesor");
 console.log("Profesores del centro:", profesores);
 
 // miEscuelaCRM.agregarUsuario({ id:7, nombre: "Carlos Ruiz", rol: "profesor", activo: true });
+
+
+async function ejecutarPruebasPractica1() {
+    console.log("=== Iniciando pruebas de la Practica 1 ===");
+
+    console.log("Registrando una asistencia...");
+    const guardado = await miEscuelaCRM.registrarAsistencia('3', '2', '1ª Hora', 'falta');
+    if (guardado) {
+        console.log("Asistencia registrada con exito en localStorage.");
+    }
+
+    console.log("Registrando una sancion...");
+    await miEscuelaCRM.registrarSancion('3', '2', 'comportamiento', 'Uso inadecuado del material');
+    console.log("Sancion guardada.");
+
+    console.log("Comprobando conflictos...");
+    const conflicto = await miEscuelaCRM.comprobarConflictoProfesor('2', 'Lunes', '1ª Hora');
+    console.log(`Hay conflicto horario?: ${conflicto}`);
+
+    console.log("Generando informe...");
+    const informe = await miEscuelaCRM.obtenerInformeAlumno('3');
+    console.log("Informe del alumno:", informe);
+}
+
+ejecutarPruebasPractica1();
